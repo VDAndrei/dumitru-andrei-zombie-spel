@@ -12,6 +12,16 @@ let zombies = [];
 
 let playerImage = "./img/player-right.png"
 
+const bgMusic = document.getElementById('bg-music');
+//Background music
+document.addEventListener('click', function () {
+    const bgMusic = document.getElementById('bg-music');
+    if (bgMusic !== null) {
+        bgMusic.volume = 0.2;
+        bgMusic.play();
+    }
+});
+//Gun
 function gun() {
     if (mouse.left && bulletCooldown === 0) {
         bullet.push(
@@ -23,7 +33,7 @@ function gun() {
         bulletCooldown--;
     }
 }
-
+//zombies and their healthbar
 function update() {
     gun();
     clearScreen()
@@ -54,32 +64,33 @@ function update() {
             zombies.splice(i, 1, { x: random(600), y: random(600), health: 5, iFrames: 0 })
         }
     }
+    //Player and its healthbar
     picture(player.x - 50, player.y - 50, playerImage)
     rectangle(player.x - 25, player.y - 50, player.health * 10, 5, "green")
     player.xSpeed = 0
     player.ySpeed = 0
     if (keyboard.w) {
-        player.ySpeed -= 5;
+        player.ySpeed -= 3;
     }
     if (keyboard.s) {
-        player.ySpeed += 5;
+        player.ySpeed += 3;
     }
     if (keyboard.a) {
-        player.xSpeed -= 5;
+        player.xSpeed -= 3;
         playerImage = "./img/player-left.png"
     }
     if (keyboard.d) {
-        player.xSpeed += 5;
+        player.xSpeed += 3;
         playerImage = "./img/player-right.png"
-    }
+    }//cooldown dash
     if (keyboard.space && cooldown === 0 && distance(mouse.x, mouse.y, player.x, player.y) < 300) {
         player.x = mouse.x
         player.y = mouse.y
-        cooldown = 150 //150 in the future
+        cooldown = 150
     }
     if (cooldown > 0) {
         cooldown--;
-    }
+    }//borders to not let the player off the screen
     if (player.x + player.size / 2 >= innerWidth) {
         player.x = innerWidth - player.size / 2
         player.xSpeed = -1
@@ -93,7 +104,7 @@ function update() {
         player.y = player.size / 2
         player.ySpeed = 1
     }
-
+    //bullets
     for (var i = 0; i < bullet.length; i++) {
         rectangle(bullet[i].x, bullet[i].y, bullet[i].size, bullet[i].size, "red")
         bullet[i].x += bullet[i].xSpeed;
@@ -103,7 +114,7 @@ function update() {
     if (player.iFrames > 0) {
         player.iFrames--
     }
-
+    //allert when the player dies
     if (player.health == 0) {
         alert("GAME OVER!")
         stopUpdate()
@@ -111,7 +122,7 @@ function update() {
 
     player.x += player.xSpeed;
     player.y += player.ySpeed;
-
-    text(10, 50, 14, `dash cooldown: ${Math.round(cooldown / 30)}s`, "blue")
+    //information in the corner
+    text(10, 50, 14, `dash cooldown: ${Math.round(cooldown / 30)}s`, "white")
     text(10, 20, 14, `score: ${score}`)
 }

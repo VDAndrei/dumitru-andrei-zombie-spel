@@ -1,19 +1,38 @@
-.controls {
+.play-btn {
     display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(119, 86, 158);
-    color: white;
-    margin: -8px;
-    margin-top: 41%;
-    height: 142px;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-top: 5%;
+    padding: 10px;
+    text-decoration: none;
+    margin-left: 600px;
+    margin-right: 600px;
+    background-color: greenyellow;
 }
 
-.instructions {
+.control-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls {
     display: flex;
 }
 
 h4 {
-    padding: 10px;
+    margin: 5px;
+}
+
+a {
+    color: black;
+    font-size: large;
+}
+
+.ss-of-game {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    border-radius: 20px;
 }
